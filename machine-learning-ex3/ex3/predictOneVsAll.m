@@ -30,11 +30,11 @@ X = [ones(m, 1) X];
 %       for each row.
 %       
 
-
-
-
-
-
+out = sigmoid(X*all_theta'); % The sigmoid here is only for completeness,
+							 % actually we're just looking for the most probable outcome,
+							 % not an activation. This just maps the values to a "probability"
+[out_max, max_index] = max(out, [], 2);
+p = max_index;
 
 % =========================================================================
 
