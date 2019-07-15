@@ -73,8 +73,8 @@ Theta1_reg(1) = 0;
 Theta2_reg = Theta2;
 Theta2_reg(1) = 0;
 
-a1 = [ones(m, 1) X];
-z2 = a1 * Theta1';
+a1_reg = [ones(m, 1) X];
+z2 = a1_reg * Theta1';
 a2 = sigmoid(z2);
 a2_reg = [ones(size(a2, 1), 1) a2];
 z3 = a2_reg * Theta2';
@@ -87,6 +87,13 @@ Theta2_penalty = sum(sum(Theta2(:, 2:end).^2, 2));
 penalty = lambda*(Theta1_penalty + Theta2_penalty)/(2*m);
 
 J = J + penalty;
+
+delta3 = h .- y_mat;
+delta2 = ((delta3*Theta2) .* sigmoidGradient([ones(size(z2, 1), 1) z2]))(:, 2:end);
+
+Theta2_grad = (lambda*([zeros(size(Theta2, 1), 1) Theta2(:, 2:end)]) + delta3'*a2_reg)/m;
+Theta1_grad = (lambda*([zeros(size(Theta1, 1), 1) Theta1(:, 2:end)]) + delta2'*a1_reg)/m;
+
 
 % -------------------------------------------------------------
 
