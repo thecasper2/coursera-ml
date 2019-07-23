@@ -52,12 +52,20 @@ error_val   = zeros(m, 1);
 %
 
 % ---------------------- Sample Solution ----------------------
+m_val = size(Xval, 1);
 
-
-
-
-
-
+for i = 1:m
+	for j = 1:50
+		rndIDX = randperm(m); 
+		x_sample = X(rndIDX(1:i), :); 
+		y_sample = y(rndIDX(1:i), :);
+		[theta] = trainLinearReg(x_sample, y_sample, lambda);
+		error_train(i) += linearRegCostFunction(x_sample, y_sample, theta, 0);
+		error_val(i) += linearRegCostFunction(Xval, yval, theta, 0);
+	endfor
+	error_train(i) = error_train(i)/50;
+	error_val(i) = error_val(i)/50;
+endfor
 
 % -------------------------------------------------------------
 
