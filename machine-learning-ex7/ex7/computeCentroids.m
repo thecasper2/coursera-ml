@@ -24,14 +24,14 @@ centroids = zeros(K, n);
 %               centroid i.
 %
 % Note: You can use a for-loop over the centroids to compute this.
-%
 
-
-
-
-
-
-
+for k=1:K
+	X_k = X(idx==k,:); % Get training examples where the nearest centroid is k
+	X_k_mean = mean(X_k); % Get means of each feature for those training examples
+	if size(X_k_mean, 1) > 0
+		centroids(k, :) = X_k_mean; % Set the centroid to be this new mean
+	end
+endfor
 
 % =============================================================
 

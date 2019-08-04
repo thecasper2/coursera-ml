@@ -21,11 +21,16 @@ idx = zeros(size(X,1), 1);
 % Note: You can use a for-loop over the examples to compute this.
 %
 
+n_examples = size(X,1);
 
-
-
-
-
+for i=1:n_examples % ith training example
+	centroid_distances = zeros(K, 1); % initialise a vector of distances to each centroid
+	for k=1:K % kth centroid
+		centroid_distances(k) = sum((X(i,:) - centroids(k,:)).^2); % calculate centroid distance for ith example for all centroids
+	endfor
+	[closest_centroid_distance, closest_centroid_index] = min(centroid_distances); % find the index of the closest centroid
+	idx(i) = closest_centroid_index; % set the c(i) value as the closest centroid index
+endfor
 
 % =============================================================
 
